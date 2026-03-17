@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Mundo</title>
+</head>
+<body>
+    <h1>Hola Mundo</h1>
+    <h2>Esto es solo prueba</h2>
+    <!-- <form action="post" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+
+            <label for="message">Mensaje:</label>
+            <input type="text" id="message" name="message">
+
+            <button type="submit">Enviar</button>
+        </div>
+    </form> -->
+    <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f9f775f1-85df-483f-928d-00153b741510">
+        
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        
+        <label for="message">Mensaje:</label>
+        <textarea name="message" required></textarea>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
