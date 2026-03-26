@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Hola Mundo</title>
 </head>
 <body>
@@ -22,8 +24,7 @@
             <button type="submit">Enviar</button>
         </div>
     </form> -->
-    <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="f9f775f1-85df-483f-928d-00153b741510">
+    <form id="contactForm" method="POST">
         
         <label for="name">Nombre:</label>
         <input type="text" name="name" required>
@@ -36,5 +37,69 @@
         
         <button type="submit">Submit</button>
     </form>
+    <div class="carousel-wrap">
+        <div class="carousel-inner">
+            <div class="glide" id="myGlide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+
+                <li class="glide__slide">
+                    <div class="review-card">
+                    <div class="stars">
+                        <!-- repite este SVG 5 veces, agrega class="empty" a las vacías -->
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 6.6H19l-5.3 3.9 2 6.5L10 14l-5.7 4 2-6.5L1 7.6h6.6z"/></svg>
+                    </div>
+                    <p class="review-text">"Tu comentario aquí."</p>
+                    <div class="review-author">
+                        <span class="review-name">Nombre Apellido</span>
+                        <span class="review-role">Puesto · Empresa</span>
+                    </div>
+                    </div>
+                </li>
+
+                <!-- más slides... -->
+
+                </ul>
+            </div>
+            </div>
+
+            <div class="controls">
+            <button class="carousel-btn prev" id="prevBtn" aria-label="Previous slide">
+                <svg viewBox="0 0 640 640"><path d="M73.4 342.6C60.9 330.1 60.9 309.8 73.4 297.3L233.4 137.3C245.9 124.8 266.2 124.8 278.7 137.3C291.2 149.8 291.2 170.1 278.7 182.6L173.3 288L544 288C561.7 288 576 302.3 576 320C576 337.7 561.7 352 544 352L173.3 352L278.7 457.4C291.2 469.9 291.2 490.2 278.7 502.7C266.2 515.2 245.9 515.2 233.4 502.7L73.4 342.7z"/></svg>
+            </button>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <!-- un bullet por cada slide -->
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+            </div>
+            <button class="carousel-btn next" id="nextBtn" aria-label="Next slide">
+                <svg viewBox="0 0 640 640"><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
+            </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+    <script>
+    const glide = new Glide('#myGlide', {
+        type: 'carousel',
+        perView: 3,
+        gap: 20,
+        autoplay: 4000,
+        hoverpause: true,
+        breakpoints: {
+        1024: { perView: 2 },
+        640: { perView: 1 }
+        }
+    });
+
+    glide.mount();
+
+    document.getElementById('prevBtn').addEventListener('click', () => glide.go('<'));
+    document.getElementById('nextBtn').addEventListener('click', () => glide.go('>'));
+    </script>
 </body>
+<script src="script.js" defer></script>
+<script src="/api/contact.js" defer></script>
 </html>
