@@ -16,8 +16,12 @@ document.getElementById('contactForm').addEventListener('submit', async function
         message: this.querySelector('[name="message"]').value
     };
     
+    console.log('📤 Enviando datos:', formData);
+    
     try {
         // Enviar a la Serverless Function
+        console.log('🌐 Haciendo fetch a /api/contact');
+        
         const response = await fetch('/api/contact', {
             method: 'POST',
             headers: {
@@ -26,7 +30,11 @@ document.getElementById('contactForm').addEventListener('submit', async function
             body: JSON.stringify(formData)
         });
         
+        console.log('📥 Response status:', response.status);
+        console.log('📥 Response ok:', response.ok);
+        
         const data = await response.json();
+        console.log('📦 Data recibida:', data);
         
         if (response.ok && data.success) {
             // Éxito
@@ -34,12 +42,15 @@ document.getElementById('contactForm').addEventListener('submit', async function
             this.reset();
         } else {
             // Error del servidor
-            alert('Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
+            console.error('❌ Error del servidor:', data);
+            alert('Hubo un error al enviar el mensaje: ' + (data.message || 'Error desconocido'));
         }
     } catch (error) {
         // Error de conexión
-        console.error('Error:', error);
-        alert('Error de conexión. Por favor verifica tu internet e intenta nuevamente.');
+        console.error('❌ Error completo:', error);
+        console.error('❌ Error name:', error.name);
+        console.error('❌ Error message:', error.message);
+        alert('Error de conexión. Por favor verifica tu internet e intenta nuevamente.\n\nDetalles: ' + error.message);
     } finally {
         // Restaurar botón
         submitButton.disabled = false;
