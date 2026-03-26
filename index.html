@@ -10,20 +10,7 @@
 <body>
     <h1>Hola Mundo</h1>
     <h2>Esto es solo prueba</h2>
-    <!-- <form action="post" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name">
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-
-            <label for="message">Mensaje:</label>
-            <input type="text" id="message" name="message">
-
-            <button type="submit">Enviar</button>
-        </div>
-    </form> -->
+    
     <form id="contactForm" method="POST">
         
         <label for="name">Nombre:</label>
@@ -37,6 +24,7 @@
         
         <button type="submit">Submit</button>
     </form>
+    
     <div class="carousel-wrap">
         <div class="carousel-inner">
             <div class="glide" id="myGlide">
@@ -99,7 +87,8 @@
     document.getElementById('prevBtn').addEventListener('click', () => glide.go('<'));
     document.getElementById('nextBtn').addEventListener('click', () => glide.go('>'));
     </script>
+    
+    <!-- Solo importar script.js, NO contact.js -->
+    <script src="script.js"></script>
 </body>
-<script src="script.js" defer></script>
-
 </html>
