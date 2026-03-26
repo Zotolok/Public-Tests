@@ -22,7 +22,7 @@
             <button type="submit">Enviar</button>
         </div>
     </form> -->
-    <form action="https://api.web3forms.com/submit" method="POST">
+    <form action="https://api.web3forms.com/submit" method="POST" id="formu">
         <input type="hidden" name="access_key" value="f9f775f1-85df-483f-928d-00153b741510">
         
         <label for="name">Nombre:</label>
@@ -39,7 +39,20 @@
         <button type="submit">Submit</button>
     </form>
 
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script>
+        const form = document.getElementById('formu');
+
+        form.addEventListener('submit', function(e) {
+
+            const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
+
+            if (!hCaptcha) {
+                e.preventDefault();
+                alert("Please fill out captcha field")
+                return
+            }
+        });
+    </script>
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
