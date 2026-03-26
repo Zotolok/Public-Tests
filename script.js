@@ -1,59 +1,60 @@
-// Manejar envío del formulario
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    
-    // Deshabilitar botón y mostrar estado de carga
-    submitButton.disabled = true;
-    submitButton.textContent = 'Enviando...';
-    
-    // Recopilar datos del formulario
-    const formData = {
-        name: this.querySelector('[name="name"]').value,
-        email: this.querySelector('[name="email"]').value,
-        message: this.querySelector('[name="message"]').value
-    };
-    
-    console.log('📤 Enviando datos:', formData);
-    
-    try {
-        // Enviar a la Serverless Function
-        console.log('🌐 Haciendo fetch a /api/contact');
-        
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        console.log('📥 Response status:', response.status);
-        console.log('📥 Response ok:', response.ok);
-        
-        const data = await response.json();
-        console.log('📦 Data recibida:', data);
-        
-        if (response.ok && data.success) {
-            // Éxito
-            alert('¡Mensaje enviado correctamente! Te contactaremos pronto.');
-            this.reset();
-        } else {
-            // Error del servidor
-            console.error('❌ Error del servidor:', data);
-            alert('Hubo un error al enviar el mensaje: ' + (data.message || 'Error desconocido'));
-        }
-    } catch (error) {
-        // Error de conexión
-        console.error('❌ Error completo:', error);
-        console.error('❌ Error name:', error.name);
-        console.error('❌ Error message:', error.message);
-        alert('Error de conexión. Por favor verifica tu internet e intenta nuevamente.\n\nDetalles: ' + error.message);
-    } finally {
-        // Restaurar botón
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
+const form = document.getElementById('formu');
+const result = document.getElementById('resultMessage');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Detenemos la recarga de página obligatoriamente
+
+    // 1. Validar Captcha
+    const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
+    if (!hCaptcha) {
+        alert("Please fill out captcha field");
+        return;
     }
+
+    // 2. Preparar el feedback visual
+    result.style.display = "block";
+    result.innerHTML = "Enviando...";
+    result.style.color = "#333"; // Color neutro mientras envía
+
+    // 3. Capturar datos y enviar vía Fetch
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let jsonRes = await response.json();
+        if (response.status == 200) {
+            // ÉXITO: Mostramos mensaje y limpiamos todo
+            result.innerHTML = "¡Mensaje enviado con éxito!";
+            result.style.color = "green";
+            form.reset(); // Borra los campos (Nombre, Email, etc.)
+            
+            // Si usas el script de Web3Forms, a veces hay que resetear el captcha visualmente
+            if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); 
+        } else {
+            // ERROR DE SERVIDOR: Web3Forms nos dice qué pasó
+            result.innerHTML = jsonRes.message || "Hubo un error al enviar.";
+            result.style.color = "red";
+        }
+    })
+    .catch(error => {
+        // ERROR DE RED: No hay internet o el servidor no responde
+        console.log(error);
+        result.innerHTML = "Error de conexión. Intenta de nuevo.";
+        result.style.color = "red";
+    })
+    .then(() => {
+        // Opcional: Ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+            result.style.display = "none";
+        }, 5000);
+    });
 });
