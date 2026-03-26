@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     console.log('📦 Payload:', JSON.stringify(payload, null, 2));
 
     // Enviar a Web3Forms
-    const response = await fetch('https://api.web3forms.com/submit', {
+    const response = await fetch('https://api.staticforms.xyz/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
