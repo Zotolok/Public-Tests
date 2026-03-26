@@ -1,44 +1,90 @@
-.carousel-wrap { padding: 2rem 0; background: #FDFDFD; }
-.carousel-inner { max-width: 1250px; margin: 0 auto; padding: 0 1rem; box-sizing: border-box; }
-.glide__track { overflow: hidden; }
-.review-card {
-  background: #fff;
-  border: 0.5px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 1.5rem;
-  min-height: 190px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-sizing: border-box;
-  margin: 8px 4px;
+/* Estilos generales del formulario */
+.contact_form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.stars { display: flex; gap: 3px; }
-.star { width: 18px; height: 18px; fill: #FACC15; }
-.star.empty { fill: #e5e7eb; }
-.review-text { font-size: 15px; color: #6C757D; line-height: 1.65; flex: 1; font-family: Georgia, serif; }
-.review-author { display: flex; flex-direction: column; gap: 2px; }
-.review-name { font-size: 14px; font-weight: 500; color: #0A2533; }
-.review-role { font-size: 12px; color: #6C757D; }
-.controls { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 1.75rem; }
-.carousel-btn {
-  width: 40px; height: 40px;
-  border: 0.5px solid #d1d5db;
-  border-radius: 50%;
-  background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  padding: 10px;
-  box-sizing: border-box;
-  transition: background 0.15s, border-color 0.15s;
+
+.contact_form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
 }
-.carousel-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
-.carousel-btn:active { transform: scale(0.96); }
-.carousel-btn svg { width: 100%; height: 100%; fill: #0A2533; }
-.glide__bullets { display: flex; gap: 8px; align-items: center; }
-.glide__bullet {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #d1d5db; border: none; padding: 0; cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+
+.contact_form input[type="text"],
+.contact_form input[type="email"],
+.contact_form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* Importante para que no se salga del contenedor */
 }
-.glide__bullet--active { background: #0A2533; transform: scale(1.25); }
+
+.contact_form input:focus,
+.contact_form textarea:focus {
+    outline: none;
+    border-color: #007bff; /* Un azul profesional */
+}
+
+.contact_form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* El widget del captcha */
+.h-captcha {
+    margin-bottom: 20px;
+}
+
+/* El botón de enviar */
+.contact_form button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact_form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.contact_form button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilos para el mensaje de resultado */
+#resultMessage {
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Estos se activarán según el color que pongas en el script */
+#resultMessage[style*="color: green"] {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+#resultMessage[style*="color: red"] {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
