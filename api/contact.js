@@ -38,12 +38,15 @@ export default async function handler(req, res) {
     console.log('📦 Payload:', JSON.stringify(payload, null, 2));
 
     // Enviar a Web3Forms
-    const response = await fetch('https://api.staticforms.xyz/submit', {
+    const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        // IMPORTANTE: Pon la URL real de tu sitio aquí
+        'Origin': 'public-tests-ebon.vercel.app', 
+        'Referer': 'public-tests-ebon.vercel.app/'
       },
       body: JSON.stringify(payload)
     });
